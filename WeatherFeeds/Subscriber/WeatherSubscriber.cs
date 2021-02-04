@@ -23,7 +23,7 @@ namespace WeatherFeeds.Subscriber
 
         protected virtual void OnProcessedDataReceived(object sender, WeatherInfoEventArgs e)
         {
-            Console.WriteLine($"Hey {Name}, Temperature at {e.Location} is {e.Celsius}°C | {e.Fahrenheit}°F.");
+            Console.WriteLine($"Hey {Name}, Temperature at {e.Location} is {e.Celsius}°C | {e.Fahrenheit}°F. Updated on {e.UpdatedOn}");
         }
     }
 }
