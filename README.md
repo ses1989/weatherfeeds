@@ -89,8 +89,35 @@ dotnet build
 dotnet run
 ```
 Another option is to run it locally from the Visual Studio.
-Please see a sample screenshot of the application running.
-[![Screenshot-2021-02-05-at-14-43-12.png](https://i.postimg.cc/QxVb9x3W/Screenshot-2021-02-05-at-14-43-12.png)](https://postimg.cc/jL0NBTCs)
+
+## Example
+
+```c#
+static async Task Main(string[] args)
+{
+    do
+    {
+        IWeatherChannel weatherChannel = new WeatherChannel();  // Created a weather channel
+        var subscriber1 = new WeatherSubscriber("Subscriber 1", weatherChannel);    //Subscriber 1 created and subscribed to weather channel
+        var subscriber2 = new WeatherSubscriber("Subscriber 2", weatherChannel);    //Subscriber 2 created and subscribed to weather channel
+        WeatherPublisher publisher = new WeatherPublisher(weatherChannel);  //Created a publisher
+
+        await publisher.PublishDataAsync(); //Publishing weather updates to weather channel
+        subscriber1.UnSubscribe();  //Subscriber 1 unsubscribed
+
+        var subscriber3 = new WeatherSubscriber("Subscriber 3", weatherChannel);    //Subscriber 1 created and subscribed to weather channel
+
+        await publisher.PublishDataAsync(); //Publishing weather updates to weather channel
+
+        subscriber2.UnSubscribe();  //Subscriber 2 unsubscribed
+        subscriber3.UnSubscribe();  //Subscriber 2 unsubscribed
+
+        Console.WriteLine("Do you want to continue (Y/N)? ");
+    } while (Console.ReadLine().ToUpper() == "Y");
+}
+```
+Output of the above example code
+[![Screenshot-2021-02-05-at-15-36-14.png](https://i.postimg.cc/nrLSd4QH/Screenshot-2021-02-05-at-15-36-14.png)](https://postimg.cc/jwGh2JX9)
 
 ## TODOs
 As per the current implementation, all the subscribers will get notified about all the weather updates. Needed to do additional changes in the WeatherChannel if we wanted to filter the notifications.
