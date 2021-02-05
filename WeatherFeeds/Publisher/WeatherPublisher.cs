@@ -19,7 +19,7 @@ namespace WeatherFeeds.Publisher
             Console.Write("Enter the Temperature in Celsius(°C) : ");
             int.TryParse(Console.ReadLine(), out int celsius);
 
-            await _weatherChannel.ProcessWeatherDataAsync(location, celsius);
+            await _weatherChannel.ProcessInputDataAsync(new WeatherData { Location = location, Celsius = celsius });
         }
     }
 }

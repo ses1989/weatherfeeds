@@ -23,11 +23,11 @@ namespace WeatherFeeds.Tests
         public async Task Test_validate_temperature_data()
         {
             WeatherInfoEventArgs eventArgs = null;
-            _weatherChannel.ProcessingCompleted += delegate (object sender, WeatherInfoEventArgs e)
+            _weatherChannel.Subscribe("Test Subscriber", delegate (object sender, WeatherInfoEventArgs e)
             {
                 eventArgs = e;
-            };
-            await _weatherChannel.ProcessWeatherDataAsync("kochi", 30);
+            });
+            await _weatherChannel.ProcessInputDataAsync(new WeatherData { Location = "kochi", Celsius = 30 });
             int fahren = (30 * 9) / 5 + 32;
             Assert.AreEqual(30, eventArgs.Celsius);
             Assert.AreEqual(fahren, eventArgs.Fahrenheit);
@@ -37,7 +37,7 @@ namespace WeatherFeeds.Tests
         public async Task Test_validate_temperature_data_subscribe()
         {
             _weatherChannel.Subscribe("Test Subscriber", OnProcessedDataReceived);
-            await _weatherChannel.ProcessWeatherDataAsync("kochi", 30);
+            await _weatherChannel.ProcessInputDataAsync(new WeatherData { Location = "kochi", Celsius = 30 });
             Assert.IsTrue(_isSubscribed);
         }
 
@@ -46,7 +46,7 @@ namespace WeatherFeeds.Tests
         {
             _weatherChannel.Subscribe("Test Subscriber", OnProcessedDataReceived);
             _weatherChannel.UnSubscribe("Test Subscriber", OnProcessedDataReceived);
-            await _weatherChannel.ProcessWeatherDataAsync("kochi", 30);
+            await _weatherChannel.ProcessInputDataAsync(new WeatherData { Location = "kochi", Celsius = 30 });
             Assert.IsFalse(_isSubscribed);
         }
 
@@ -55,7 +55,7 @@ namespace WeatherFeeds.Tests
         {
             _weatherChannel.Subscribe("Test Subscriber", OnProcessedDataReceived);
             _weatherChannel.Subscribe("Test Subscriber", OnProcessedDataReceived);
-            await _weatherChannel.ProcessWeatherDataAsync("kochi", 30);
+            await _weatherChannel.ProcessInputDataAsync(new WeatherData { Location = "kochi", Celsius = 30 });
             Assert.AreEqual(1, _triggerCount);
         }
 

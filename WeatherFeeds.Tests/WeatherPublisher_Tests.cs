@@ -30,10 +30,10 @@ namespace WeatherFeeds.Tests
             Console.SetIn(new StringReader(data));
 
             var publisher = new WeatherPublisher(_mockWeatherChannel.Object);
-            _mockWeatherChannel.Setup(t => t.ProcessWeatherDataAsync("Kochi", 30)).Verifiable();
+            _mockWeatherChannel.Setup(t => t.ProcessInputDataAsync(It.IsAny<WeatherData>())).Verifiable();
             await publisher.PublishDataAsync();
 
-            _mockWeatherChannel.Verify(t => t.ProcessWeatherDataAsync("Kochi", 30), Times.Once);
+            _mockWeatherChannel.Verify(t => t.ProcessInputDataAsync(It.IsAny<WeatherData>()), Times.Once);
         }
     }
 }
