@@ -1,6 +1,6 @@
 # WeatherFeeds
 
-Weather Feeds is a C# .NET Core Console Application developed to notify the subscribers about the weather updates of any region. This application is a demonstration of Publish/Subscribe pattern.
+WeatherFeeds is a C# .NET Core Console Application developed to notify the subscribers about the weather updates of any region. This application is a demonstration of Publish/Subscribe pattern.
 
 ## Prerequisites
 1. Visual Studio
@@ -76,8 +76,8 @@ A subscriber can subscribe/unsubscribe to a WeatherChannel and listen to the new
 ```c#
 protected virtual void OnProcessedDataReceived(object sender, WeatherInfoEventArgs e)
 {
-   Console.WriteLine($"Hey {Name}, Temperature at {e.Location} is {e.Celsius}°C +
-       | {e.Fahrenheit}°F. Updated on {e.UpdatedOn}");
+   Console.WriteLine($"Hey {Name}, Temperature at {e.Location} is {e.Celsius}°C" +
+       "| {e.Fahrenheit}°F. Updated on {e.UpdatedOn}");
 }
 ```
 
