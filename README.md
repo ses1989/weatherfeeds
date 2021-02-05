@@ -90,7 +90,7 @@ dotnet run
 ```
 Another option is to run it locally from the Visual Studio.
 Please see a sample screenshot of the application running.
-![Application_Screenshot](https://postimg.cc/jL0NBTCs)
+[![Screenshot-2021-02-05-at-14-43-12.png](https://i.postimg.cc/QxVb9x3W/Screenshot-2021-02-05-at-14-43-12.png)](https://postimg.cc/jL0NBTCs)
 
 ## TODOs
 As per the current implementation, all the subscribers will get notified about all the weather updates. Needed to do additional changes in the WeatherChannel if we wanted to filter the notifications.
